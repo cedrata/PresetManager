@@ -9,6 +9,8 @@
 #include "PluginProcessor.h"
 #include "PluginEditor.h"
 
+#include "PluginParameters.h"
+
 //==============================================================================
 PresetManagerAudioProcessor::PresetManagerAudioProcessor()
 #ifndef JucePlugin_PreferredChannelConfigurations
@@ -19,7 +21,7 @@ PresetManagerAudioProcessor::PresetManagerAudioProcessor()
                       #endif
                        .withOutput ("Output", juce::AudioChannelSet::stereo(), true)
                      #endif
-                       )
+                       ), apvts(*this, nullptr, cdrt::PluginsParameters::id, createParameters())
 #endif
 {
 }
@@ -166,7 +168,8 @@ bool PresetManagerAudioProcessor::hasEditor() const
 
 juce::AudioProcessorEditor* PresetManagerAudioProcessor::createEditor()
 {
-    return new PresetManagerAudioProcessorEditor (*this);
+    // return new PresetManagerAudioProcessorEditor (*this);
+    return new juce::GenericAudioProcessorEditor (*this);
 }
 
 //==============================================================================
@@ -181,6 +184,32 @@ void PresetManagerAudioProcessor::setStateInformation (const void* data, int siz
 {
     // You should use this method to restore your parameters from this memory block,
     // whose contents will have been created by the getStateInformation() call.
+}
+
+//==============================================================================
+juce::AudioProcessorValueTreeState::ParameterLayout PresetManagerAudioProcessor::createParameters()
+{
+    std::vector<std::unique_ptr<juce::RangedAudioParameter>> parameters;
+    
+    // Parameter 1
+    parameters.push_back (std::make_unique<juce::AudioParameterFloat> (cdrt::PluginsParameters::param1::id,
+                                                                       cdrt::PluginsParameters::param1::name,
+                                                                       juce::NormalisableRange<float> (cdrt::PluginsParameters::param1::min,
+                                                                                                       cdrt::PluginsParameters::param1::max),
+                                                                       cdrt::PluginsParameters::param1::initial));
+
+    // Parameter 2
+    parameters.push_back (std::make_unique<juce::AudioParameterFloat> (cdrt::PluginsParameters::param2::id,
+                                                                       cdrt::PluginsParameters::param2::name,
+                                                                       juce::NormalisableRange<float> (cdrt::PluginsParameters::param2::min,
+                                                                                                       cdrt::PluginsParameters::param2::max),
+                                                                       cdrt::PluginsParameters::param2::initial));
+    // Save Button
+    parameters.push_back (std::make_unique<juce::AudioParameterBool> (cdrt::PluginsParameters::saveButton::id,
+                                                                      cdrt::PluginsParameters::saveButton::name,
+                                                                      cdrt::PluginsParameters::saveButton::initial));
+    
+    return { parameters.begin(), parameters.end() };
 }
 
 //==============================================================================
