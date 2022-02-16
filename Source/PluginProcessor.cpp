@@ -24,10 +24,14 @@ PresetManagerAudioProcessor::PresetManagerAudioProcessor()
                        ), apvts(*this, nullptr, cdrt::PluginsParameters::id, createParameters())
 #endif
 {
+    // Adding required parameter listeners
+    apvts.addParameterListener(cdrt::PluginsParameters::saveButton::id, this);
 }
 
 PresetManagerAudioProcessor::~PresetManagerAudioProcessor()
 {
+    // Removing all parameters listeners
+    apvts.removeParameterListener(cdrt::PluginsParameters::saveButton::id, this);
 }
 
 //==============================================================================
@@ -184,6 +188,28 @@ void PresetManagerAudioProcessor::setStateInformation (const void* data, int siz
 {
     // You should use this method to restore your parameters from this memory block,
     // whose contents will have been created by the getStateInformation() call.
+}
+
+//==============================================================================
+void PresetManagerAudioProcessor::parameterChanged(const juce::String &parameterID, float newValue)
+{
+    // If the Save Button has been clicked then the current state will be converted to XML
+    // and saved to the specified file
+    if (parameterID == cdrt::PluginsParameters::saveButton::id)
+    {
+        // Explicit writing
+        std::unique_ptr<juce::XmlElement> currentStateXML = apvts.state.createXml();
+        if ((juce::SystemStats::getOperatingSystemType() & juce::SystemStats::OperatingSystemType::MacOSX) != 0)
+        {
+            const auto presetFile = new juce::File("/Users/lucagreggio/Documents/CedrataDSP-presets-test/PresetManager-presets/PresetManager.xml");
+            currentStateXML->writeTo(*presetFile);
+            // Compact writing
+            // apvts.state.createXml()->writeTo(juce::File("/Users/lucagreggio/Documents/CedrataDSP-presets-test/PresetManager-presets/PresetManager.xml"));
+        }
+        // Understand how to prevent button toggle
+        // apvts.state.setProperty(cdrt::PluginsParameters::saveButton::id, cdrt::PluginsParameters::saveButton::initial, nullptr);
+        // apvts.state.fromXml(*apvts.state.createXml());
+    }
 }
 
 //==============================================================================
