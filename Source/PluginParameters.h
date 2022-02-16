@@ -12,7 +12,7 @@
 
 namespace cdrt
 {
-    namespace PluginsParameters
+    namespace PluginParameters
     {
         const juce::String id = "parameters";
         
