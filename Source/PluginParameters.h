@@ -14,7 +14,7 @@ namespace cdrt
 {
     namespace PluginsParameters
     {
-        const juce::String id = "preset manager parameters";
+        const juce::String id = "parameters";
         
         namespace param1
         {
