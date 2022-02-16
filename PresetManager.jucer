@@ -4,13 +4,19 @@
               addUsingNamespaceToJuceHeader="0" displaySplashScreen="1" jucerFormatVersion="1">
   <MAINGROUP id="pis3W4" name="PresetManager">
     <GROUP id="{5F4CB3E1-2C9C-DDC8-CFD4-F502BEB5289F}" name="Source">
-      <FILE id="UsXgKR" name="PluginProcessor.cpp" compile="1" resource="0"
-            file="Source/PluginProcessor.cpp"/>
-      <FILE id="GXQd0C" name="PluginProcessor.h" compile="0" resource="0"
-            file="Source/PluginProcessor.h"/>
-      <FILE id="GlhTjh" name="PluginEditor.cpp" compile="1" resource="0"
-            file="Source/PluginEditor.cpp"/>
-      <FILE id="EmoEyn" name="PluginEditor.h" compile="0" resource="0" file="Source/PluginEditor.h"/>
+      <GROUP id="{BA8E36E7-08BD-88A6-0A33-65172F13D776}" name="Core">
+        <GROUP id="{AD90B14A-0E19-0908-36FE-5CDED092EA33}" name="UI">
+          <FILE id="GlhTjh" name="PluginEditor.cpp" compile="1" resource="0"
+                file="Source/PluginEditor.cpp"/>
+          <FILE id="EmoEyn" name="PluginEditor.h" compile="0" resource="0" file="Source/PluginEditor.h"/>
+        </GROUP>
+        <GROUP id="{F691C462-6251-6FF6-D0FD-7C1845CE31C3}" name="Processor">
+          <FILE id="UsXgKR" name="PluginProcessor.cpp" compile="1" resource="0"
+                file="Source/PluginProcessor.cpp"/>
+          <FILE id="GXQd0C" name="PluginProcessor.h" compile="0" resource="0"
+                file="Source/PluginProcessor.h"/>
+        </GROUP>
+      </GROUP>
     </GROUP>
   </MAINGROUP>
   <JUCEOPTIONS JUCE_STRICT_REFCOUNTEDPOINTER="1" JUCE_VST3_CAN_REPLACE_VST2="0"/>
