@@ -15,10 +15,11 @@ namespace cdrt
     namespace PluginsParameters
     {
         const juce::String id = "preset manager parameters";
+        
         namespace param1
         {
-            const std::string id = "param1";
-            const std::string name = "Parmeter 1";
+            const juce::String id = "param1";
+            const juce::String name = "Parmeter 1";
             const float max = 1.0;
             const float min = 0.0;
             const float initial = 0.5;
@@ -26,8 +27,8 @@ namespace cdrt
         
         namespace param2
         {
-            const std::string id = "param2";
-            const std::string name = "Parameter 2";
+            const juce::String id = "param2";
+            const juce::String name = "Parameter 2";
             const float max = 1.0;
             const float min = 0.0;
             const float initial = 0.7;
@@ -35,8 +36,8 @@ namespace cdrt
         
         namespace saveButton
         {
-            const std::string id = "save_button";
-            const std::string name = "Save";
+            const juce::String id = "save_button";
+            const juce::String name = "Save";
             const bool initial = false;
         }
     
