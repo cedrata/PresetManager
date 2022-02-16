@@ -21,17 +21,17 @@ PresetManagerAudioProcessor::PresetManagerAudioProcessor()
                       #endif
                        .withOutput ("Output", juce::AudioChannelSet::stereo(), true)
                      #endif
-                       ), apvts(*this, nullptr, cdrt::PluginsParameters::id, createParameters())
+                       ), apvts(*this, nullptr, cdrt::PluginParameters::id, createParameters())
 #endif
 {
     // Adding required parameter listeners
-    apvts.addParameterListener(cdrt::PluginsParameters::saveButton::id, this);
+    apvts.addParameterListener(cdrt::PluginParameters::saveButton::id, this);
 }
 
 PresetManagerAudioProcessor::~PresetManagerAudioProcessor()
 {
     // Removing all parameters listeners
-    apvts.removeParameterListener(cdrt::PluginsParameters::saveButton::id, this);
+    apvts.removeParameterListener(cdrt::PluginParameters::saveButton::id, this);
 }
 
 //==============================================================================
@@ -195,7 +195,7 @@ void PresetManagerAudioProcessor::parameterChanged(const juce::String &parameter
 {
     // If the Save Button has been clicked then the current state will be converted to XML
     // and saved to the specified file
-    if (parameterID == cdrt::PluginsParameters::saveButton::id)
+    if (parameterID == cdrt::PluginParameters::saveButton::id)
     {
         // Explicit writing
         std::unique_ptr<juce::XmlElement> currentStateXML = apvts.state.createXml();
@@ -207,7 +207,7 @@ void PresetManagerAudioProcessor::parameterChanged(const juce::String &parameter
             // apvts.state.createXml()->writeTo(juce::File("/Users/lucagreggio/Documents/CedrataDSP-presets-test/PresetManager-presets/PresetManager.xml"));
         }
         // Understand how to prevent button toggle
-        // apvts.state.setProperty(cdrt::PluginsParameters::saveButton::id, cdrt::PluginsParameters::saveButton::initial, nullptr);
+        // apvts.state.setProperty(cdrt::PluginParameters::saveButton::id, cdrt::PluginParameters::saveButton::initial, nullptr);
         // apvts.state.fromXml(*apvts.state.createXml());
     }
 }
@@ -218,22 +218,22 @@ juce::AudioProcessorValueTreeState::ParameterLayout PresetManagerAudioProcessor:
     std::vector<std::unique_ptr<juce::RangedAudioParameter>> parameters;
     
     // Parameter 1
-    parameters.push_back (std::make_unique<juce::AudioParameterFloat> (cdrt::PluginsParameters::param1::id,
-                                                                       cdrt::PluginsParameters::param1::name,
-                                                                       juce::NormalisableRange<float> (cdrt::PluginsParameters::param1::min,
-                                                                                                       cdrt::PluginsParameters::param1::max),
-                                                                       cdrt::PluginsParameters::param1::initial));
+    parameters.push_back (std::make_unique<juce::AudioParameterFloat> (cdrt::PluginParameters::param1::id,
+                                                                       cdrt::PluginParameters::param1::name,
+                                                                       juce::NormalisableRange<float> (cdrt::PluginParameters::param1::min,
+                                                                                                       cdrt::PluginParameters::param1::max),
+                                                                       cdrt::PluginParameters::param1::initial));
 
     // Parameter 2
-    parameters.push_back (std::make_unique<juce::AudioParameterFloat> (cdrt::PluginsParameters::param2::id,
-                                                                       cdrt::PluginsParameters::param2::name,
-                                                                       juce::NormalisableRange<float> (cdrt::PluginsParameters::param2::min,
-                                                                                                       cdrt::PluginsParameters::param2::max),
-                                                                       cdrt::PluginsParameters::param2::initial));
+    parameters.push_back (std::make_unique<juce::AudioParameterFloat> (cdrt::PluginParameters::param2::id,
+                                                                       cdrt::PluginParameters::param2::name,
+                                                                       juce::NormalisableRange<float> (cdrt::PluginParameters::param2::min,
+                                                                                                       cdrt::PluginParameters::param2::max),
+                                                                       cdrt::PluginParameters::param2::initial));
     // Save Button
-    parameters.push_back (std::make_unique<juce::AudioParameterBool> (cdrt::PluginsParameters::saveButton::id,
-                                                                      cdrt::PluginsParameters::saveButton::name,
-                                                                      cdrt::PluginsParameters::saveButton::initial));
+    parameters.push_back (std::make_unique<juce::AudioParameterBool> (cdrt::PluginParameters::saveButton::id,
+                                                                      cdrt::PluginParameters::saveButton::name,
+                                                                      cdrt::PluginParameters::saveButton::initial));
     
     return { parameters.begin(), parameters.end() };
 }
