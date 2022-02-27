@@ -13,7 +13,7 @@
 //==============================================================================
 /**
 */
-class PresetManagerAudioProcessor  : public juce::AudioProcessor, public juce::AudioProcessorValueTreeState::Listener
+class PresetManagerAudioProcessor  : public juce::AudioProcessor
 {
 public:
     //==============================================================================
@@ -54,16 +54,14 @@ public:
     void setStateInformation (const void* data, int sizeInBytes) override;
     
     //==============================================================================
-    void parameterChanged (const juce::String &parameterID, float newValue) override;
-    
-    //==============================================================================
+    const juce::AudioProcessorValueTreeState& getAudioProcessorValueTreeState();
     juce::AudioProcessorValueTreeState::ParameterLayout createParameters();
+    void saveStateAsPreset(const juce::String &absoluteFilePath);
+    
 private:
     //==============================================================================
     // Parameters management
     juce::AudioProcessorValueTreeState apvts;
-    bool isSaving = false;
-    
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (PresetManagerAudioProcessor)
 };

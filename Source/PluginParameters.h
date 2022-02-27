@@ -33,13 +33,5 @@ namespace cdrt
             const float min = 0.0;
             const float initial = 0.7;
         };
-        
-        namespace saveButton
-        {
-            const juce::String id = "save_button";
-            const juce::String name = "Save";
-            const bool initial = false;
-        }
-    
     }
 }

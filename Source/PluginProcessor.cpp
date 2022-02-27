@@ -24,14 +24,10 @@ PresetManagerAudioProcessor::PresetManagerAudioProcessor()
                        ), apvts(*this, nullptr, cdrt::PluginParameters::id, createParameters())
 #endif
 {
-    // Adding required parameter listeners
-    apvts.addParameterListener(cdrt::PluginParameters::saveButton::id, this);
 }
 
 PresetManagerAudioProcessor::~PresetManagerAudioProcessor()
 {
-    // Removing all parameters listeners
-    apvts.removeParameterListener(cdrt::PluginParameters::saveButton::id, this);
 }
 
 //==============================================================================
@@ -172,8 +168,8 @@ bool PresetManagerAudioProcessor::hasEditor() const
 
 juce::AudioProcessorEditor* PresetManagerAudioProcessor::createEditor()
 {
-    // return new PresetManagerAudioProcessorEditor (*this);
-    return new juce::GenericAudioProcessorEditor (*this);
+    return new PresetManagerAudioProcessorEditor (*this);
+    // return new juce::GenericAudioProcessorEditor (*this);
 }
 
 //==============================================================================
@@ -188,28 +184,6 @@ void PresetManagerAudioProcessor::setStateInformation (const void* data, int siz
 {
     // You should use this method to restore your parameters from this memory block,
     // whose contents will have been created by the getStateInformation() call.
-}
-
-//==============================================================================
-void PresetManagerAudioProcessor::parameterChanged(const juce::String &parameterID, float newValue)
-{
-    // If the Save Button has been clicked then the current state will be converted to XML
-    // and saved to the specified file
-    if (parameterID == cdrt::PluginParameters::saveButton::id)
-    {
-        // Explicit writing
-        std::unique_ptr<juce::XmlElement> currentStateXML = apvts.state.createXml();
-        if ((juce::SystemStats::getOperatingSystemType() & juce::SystemStats::OperatingSystemType::MacOSX) != 0)
-        {
-            const auto presetFile = new juce::File("/Users/lucagreggio/Documents/CedrataDSP-presets-test/PresetManager-presets/PresetManager.xml");
-            currentStateXML->writeTo(*presetFile);
-            // Compact writing
-            // apvts.state.createXml()->writeTo(juce::File("/Users/lucagreggio/Documents/CedrataDSP-presets-test/PresetManager-presets/PresetManager.xml"));
-        }
-        // Understand how to prevent button toggle
-        // apvts.state.setProperty(cdrt::PluginParameters::saveButton::id, cdrt::PluginParameters::saveButton::initial, nullptr);
-        // apvts.state.fromXml(*apvts.state.createXml());
-    }
 }
 
 //==============================================================================
@@ -230,12 +204,22 @@ juce::AudioProcessorValueTreeState::ParameterLayout PresetManagerAudioProcessor:
                                                                        juce::NormalisableRange<float> (cdrt::PluginParameters::param2::min,
                                                                                                        cdrt::PluginParameters::param2::max),
                                                                        cdrt::PluginParameters::param2::initial));
-    // Save Button
-    parameters.push_back (std::make_unique<juce::AudioParameterBool> (cdrt::PluginParameters::saveButton::id,
-                                                                      cdrt::PluginParameters::saveButton::name,
-                                                                      cdrt::PluginParameters::saveButton::initial));
-    
     return { parameters.begin(), parameters.end() };
+}
+
+const juce::AudioProcessorValueTreeState& PresetManagerAudioProcessor::getAudioProcessorValueTreeState()
+{
+    return apvts;
+}
+
+void PresetManagerAudioProcessor::saveStateAsPreset(const juce::String &absoluteFilePath)
+{
+    // Explicit writing
+    std::unique_ptr<juce::XmlElement> currentStateXML = apvts.state.createXml();
+    if ((juce::SystemStats::getOperatingSystemType() & juce::SystemStats::OperatingSystemType::MacOSX) != 0)
+    {
+         apvts.state.createXml()->writeTo(juce::File(absoluteFilePath));
+    }
 }
 
 //==============================================================================

@@ -6,6 +6,8 @@
     <GROUP id="{5F4CB3E1-2C9C-DDC8-CFD4-F502BEB5289F}" name="Source">
       <GROUP id="{BA8E36E7-08BD-88A6-0A33-65172F13D776}" name="Core">
         <GROUP id="{E1BB8807-1515-6198-24F0-97EA7437B202}" name="Init">
+          <FILE id="gZXoxJ" name="Labels.h" compile="0" resource="0" file="Source/Labels.h"/>
+          <FILE id="neRh0Z" name="Paths.h" compile="0" resource="0" file="Source/Paths.h"/>
           <FILE id="jtcSs5" name="PluginParameters.h" compile="0" resource="0"
                 file="Source/PluginParameters.h"/>
         </GROUP>
