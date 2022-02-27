@@ -55,5 +55,4 @@ void PresetManagerAudioProcessorEditor::saveStateAsPreset()
         if (file != juce::File{})
             audioProcessor.saveStateAsPreset(file.getFullPathName());
     });
-    // call from chooser->launchAsync lambda
 }
