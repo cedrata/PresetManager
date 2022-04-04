@@ -13,6 +13,17 @@
               file="Source/PluginParameters.h"/>
       </GROUP>
       <GROUP id="{BA8E36E7-08BD-88A6-0A33-65172F13D776}" name="Core">
+        <GROUP id="{28A39051-A395-68EE-1872-F5A772C49211}" name="PresetManager">
+          <GROUP id="{923FE8E7-1094-FA8E-5687-0EBDCBF9023C}" name="Implementation">
+            <FILE id="bgJ0n7" name="PresetManager.cpp" compile="1" resource="0"
+                  file="Source/PresetManager.cpp"/>
+            <FILE id="IPocfW" name="PresetManager.h" compile="0" resource="0" file="Source/PresetManager.h"/>
+          </GROUP>
+          <GROUP id="{9EAAE15A-0A12-B515-7518-B46D3353040E}" name="Interface">
+            <FILE id="UKWKP5" name="IPresetManager.h" compile="0" resource="0"
+                  file="Source/IPresetManager.h"/>
+          </GROUP>
+        </GROUP>
         <GROUP id="{AD90B14A-0E19-0908-36FE-5CDED092EA33}" name="UI">
           <FILE id="GlhTjh" name="PluginEditor.cpp" compile="1" resource="0"
                 file="Source/PluginEditor.cpp"/>
