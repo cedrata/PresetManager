@@ -27,6 +27,7 @@ public:
 private:
     //==============================================================================
     void saveStateAsPreset();
+//    void updatePresetComboBox();
     
     //==============================================================================
     // This reference is provided as a quick way for your editor to
@@ -35,6 +36,7 @@ private:
     
     // Buttons and Dials
     juce::TextButton saveButton;
+    juce::ComboBox presetComboBox;
     
     // FileChooser
     std::unique_ptr<juce::FileChooser> chooser;

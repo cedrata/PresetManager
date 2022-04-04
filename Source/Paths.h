@@ -12,16 +12,21 @@
 
 namespace cdrt
 {
-    namespace Paths
+    namespace Constants
     {
-        namespace WinPath
+        namespace Paths
         {
-            const juce::String defaultPresetPath = "C:";
-        }
-        
-        namespace MacPath
-        {
-            const juce::String defaultPresetPath = "/Users/lucagreggio/Documents/CedrataDSP-presets-test/PresetManager-presets/user-preset.xml";
+            const juce::String presetFolderName = "CedrtaDSP";
+            
+            namespace WinPath
+            {
+                const juce::String presetBaseFolder = "C:" + Paths::presetFolder;
+            }
+            
+            namespace MacPath
+            {
+                const juce::String presetBaseFolder = "/Library/Application Support/" + Paths::presetFolder;
+            }
         }
     }
 }
