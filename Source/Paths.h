@@ -20,12 +20,12 @@ namespace cdrt
             
             namespace WinPath
             {
-                const juce::String presetBaseFolder = "C:" + Paths::presetFolder;
+                const juce::String presetBaseFolder = "C:" + Paths::presetFolderName;
             }
             
             namespace MacPath
             {
-                const juce::String presetBaseFolder = "/Library/Application Support/" + Paths::presetFolder;
+                const juce::String presetBaseFolder = "/Library/Application Support/" + Paths::presetFolderName;
             }
         }
     }
