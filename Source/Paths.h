@@ -18,13 +18,17 @@ namespace cdrt
         {
             const juce::String presetFolderName = "CedrtaDSP";
             
+            const juce::String presetExtension = ".xml";
+            
             namespace WinPath
             {
+                const juce::String separator = "\\";
                 const juce::String presetBaseFolder = "C:" + Paths::presetFolderName;
             }
             
             namespace MacPath
             {
+                const juce::String separator = "/";
                 const juce::String presetBaseFolder = "/Library/Application Support/" + Paths::presetFolderName;
             }
         }

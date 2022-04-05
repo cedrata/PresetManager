@@ -33,6 +33,11 @@ namespace cdrt
         virtual void initialize() = 0;
         
         /**
+         Refresh preset list. To use whenever a change inside the preset folder is committed.
+         */
+        virtual void refresh() = 0;
+        
+        /**
          Store a preset with a key, a string, containing the preset name or other informations.
          */
         virtual void store(juce::String id) = 0;

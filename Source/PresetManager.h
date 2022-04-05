@@ -16,8 +16,40 @@ namespace cdrt
 {
     class PresetManager : public IPresetManager
     {
-        void initialize() override;
+    public:
+        /** Construcotr */
+        PresetManager() noexcept;
         
-        // TODO: Complete overrides
+        /** Destructor */
+        ~PresetManager() override;
+        
+        //======================================================================
+        // IPresetManager
+        void initialize() noexcept override;
+        
+        void refresh() noexcept override;
+        
+        void store(juce::String id) noexcept  override;
+        
+        void load(juce::String) noexcept override;
+        
+        void loadPrevious() noexcept override;
+        
+        void loadNext() noexcept override;
+    private:
+        //======================================================================
+        juce::SystemStats::OperatingSystemType osType;
+        juce::String separator;
+        juce::String prefix;
+        juce::String suffix;
+        juce::File presetFolder;
+        juce::Array<juce::File> presets;
+        
+        bool pathsAreBuilt;
+        
+        //======================================================================
+        void buildPaths() noexcept;
+        
+        void listPresets() noexcept;
     };
 } // namespace cdrt
