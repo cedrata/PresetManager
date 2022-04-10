@@ -28,7 +28,7 @@ namespace cdrt
         
         //======================================================================
         /** Getters & Setters */
-        virtual juce::Array<juce::File>& getPresets() = 0;
+        virtual const juce::Array<juce::File>& getPresets() = 0;
         
         //======================================================================
         /**

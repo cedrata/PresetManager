@@ -25,7 +25,7 @@ namespace cdrt
         
         //======================================================================
         // IPresetManager
-        juce::Array<juce::File>& getPresets() noexcept override;
+        const juce::Array<juce::File>& getPresets() noexcept override;
         
         void initialize() noexcept override;
         
@@ -33,7 +33,7 @@ namespace cdrt
         
         void store(juce::String id) noexcept  override;
         
-        void load(juce::String) noexcept override;
+        void load(juce::String id) noexcept override;
         
         void loadPrevious() noexcept override;
         
