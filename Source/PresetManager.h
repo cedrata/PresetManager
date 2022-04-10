@@ -25,6 +25,8 @@ namespace cdrt
         
         //======================================================================
         // IPresetManager
+        juce::Array<juce::File>& getPresets() noexcept override;
+        
         void initialize() noexcept override;
         
         void refresh() noexcept override;
@@ -48,8 +50,10 @@ namespace cdrt
         bool pathsAreBuilt;
         
         //======================================================================
+        /** This method will be called from inside the initialize method to generate a juce::File variable representing the preset folder. */
         void buildPaths() noexcept;
         
+        /** This method will be called from inside the initialize method to list all the presets contained in the preset folder.*/
         void listPresets() noexcept;
     };
 } // namespace cdrt

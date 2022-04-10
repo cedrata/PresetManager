@@ -20,11 +20,17 @@ namespace cdrt
     class IPresetManager
     {
     public:
+        //======================================================================
         /**
          Destructor
          */
         virtual ~IPresetManager() = default;
         
+        //======================================================================
+        /** Getters & Setters */
+        virtual juce::Array<juce::File>& getPresets() = 0;
+        
+        //======================================================================
         /**
          Initialize the preset manager. Supposing that the base preset folder actually extist,
          the needed files/folders will be added in here.
