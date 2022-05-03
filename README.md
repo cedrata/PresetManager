@@ -1,5 +1,5 @@
 # PresetManager
-# Infos
+## Infos
 Basic preset manager template for JUCE.
 
 The aim of this project is to provide a simple preset manamager implementation to add in every project if needed.
