@@ -15,15 +15,20 @@
 PresetManagerAudioProcessorEditor::PresetManagerAudioProcessorEditor (PresetManagerAudioProcessor& p)
     : AudioProcessorEditor (&p),
     audioProcessor (p),
-    saveButton(cdrt::Labels::UI::saveLabel)
+    saveButton(cdrt::Labels::UI::saveLabel),
+    previousPresetButton("<"),
+    nextPresetButton(">")
 {
-    saveButton.onClick = [this] () { saveStateAsPreset(); };
-    // add event for presets combobox
-    // update presets combobox items
+    this->initializePresetManager();
+    
+    this->initializeCallbacks();
+    
+
     addAndMakeVisible(&saveButton);
     addAndMakeVisible(&presetComboBox);
-    presetComboBox.addItem("pippo", 1);
-    presetComboBox.addItem("pluto", 2);
+    addAndMakeVisible(&previousPresetButton);
+    addAndMakeVisible(&nextPresetButton);
+    
     // Make sure that before the constructor has finished, you've set the
     // editor's size to whatever you need it to be.
     setSize (400, 300);
@@ -45,17 +50,50 @@ void PresetManagerAudioProcessorEditor::resized()
     // This is generally where you'll want to lay out the positions of any
     // subcomponents in your editor..
     juce::Rectangle<int> saveButtonArea = getLocalBounds().withTrimmedTop(getLocalBounds().getHeight()/2).reduced(50);
-    juce::Rectangle<int> presetComboBoxArea = getLocalBounds().withTrimmedBottom(getLocalBounds().getHeight()/2).reduced(50);
+    juce::Rectangle<int> presetComboBoxArea = getLocalBounds().withTrimmedBottom(getLocalBounds().getHeight()/2).reduced(50).withTrimmedLeft(getWidth()/6).withTrimmedRight(getWidth()/6);
+    juce::Rectangle<int> previousPresetButtonArea = getLocalBounds().withTrimmedBottom(getLocalBounds().getHeight()/2).reduced(50).withTrimmedRight(getWidth()/6 * 4);
+    juce::Rectangle<int> nextPrestButtonArea = getLocalBounds().withTrimmedBottom(getLocalBounds().getHeight()/2).reduced(50).withTrimmedLeft(getWidth()/6 * 4);
     saveButton.setBounds(saveButtonArea);
+    previousPresetButton.setBounds(previousPresetButtonArea);
+    nextPresetButton.setBounds(nextPrestButtonArea);
     presetComboBox.setBounds(presetComboBoxArea);
 }
 
 //=============================================================================
+void PresetManagerAudioProcessorEditor::initializePresetManager()
+{
+    // PresetManager population
+    juce::PopupMenu* pippo = presetComboBox.getRootMenu();
+    *pippo = audioProcessor.getPresetMenu();
+}
+
+void PresetManagerAudioProcessorEditor::initializeCallbacks()
+{
+    presetComboBox.onChange = [&, this] () {
+        this->audioProcessor.loadPreset(presetComboBox.getSelectedId());
+    };
+     
+    previousPresetButton.onClick = [this] () {
+        // TODO // this->audioProcessor.loadPrevoiusPreset();
+    };
+    
+    nextPresetButton.onClick = [this] () {
+        // TODO
+        // this->audioProcessor.loadNextPreset();
+    };
+   
+    saveButton.onClick = [this] () {
+        // TODO
+        // this->audioProcessor.storePreset(destinationFile);
+    };
+   
+}
+
 void PresetManagerAudioProcessorEditor::saveStateAsPreset()
 {
-    auto presetFolder = new juce::File(cdrt::Constants::Paths::MacPath::presetBaseFolder);
-    if (!presetFolder->exists()) presetFolder->createDirectory();
-    chooser = std::make_unique<juce::FileChooser>("Save", *presetFolder, "*.xml");
+    auto presetFolder = juce::File(cdrt::Constants::Paths::MacPath::presetBaseFolder);
+    if (!presetFolder.exists()) presetFolder.createDirectory();
+    chooser = std::make_unique<juce::FileChooser>("Save", presetFolder, "*.xml");
     auto chooserFlags = juce::FileBrowserComponent::saveMode
     | juce::FileBrowserComponent::canSelectFiles;
 

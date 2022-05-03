@@ -9,11 +9,14 @@
 #pragma once
 
 #include <JuceHeader.h>
+#include "IPresetManager.h"
+#include "PresetManager.h"
 
 //==============================================================================
 /**
 */
-class PresetManagerAudioProcessor  : public juce::AudioProcessor
+class PresetManagerAudioProcessor  : public juce::AudioProcessor,
+public cdrt::PresetManager::Interface::IPresetManagerCallback
 {
 public:
     //==============================================================================
@@ -30,6 +33,8 @@ public:
 
     void processBlock (juce::AudioBuffer<float>&, juce::MidiBuffer&) override;
 
+    //==============================================================================
+    // juce::Audio Processor
     //==============================================================================
     juce::AudioProcessorEditor* createEditor() override;
     bool hasEditor() const override;
@@ -54,6 +59,19 @@ public:
     void setStateInformation (const void* data, int sizeInBytes) override;
     
     //==============================================================================
+    // IPresetManagerCallback
+    //==============================================================================
+    const juce::PopupMenu getPresetMenu() override;
+    
+    //==============================================================================
+    juce::Result storePreset(const juce::File &destinationFile) override;
+    juce::Result deletePreset(const int id) override;
+    int loadPreset(const int id) override;
+    int loadPrevoiusPreset() override;
+    int loadNextPreset() override;
+    
+    
+    //==============================================================================
     const juce::AudioProcessorValueTreeState& getAudioProcessorValueTreeState();
     juce::AudioProcessorValueTreeState::ParameterLayout createParameters();
     void saveStateAsPreset(const juce::String &absoluteFilePath);
@@ -62,6 +80,9 @@ private:
     //==============================================================================
     // Parameters management
     juce::AudioProcessorValueTreeState apvts;
+    
+    // Preset Manager
+    std::unique_ptr<cdrt::PresetManager::Interface::IPresetManager> presetManager;
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (PresetManagerAudioProcessor)
 };

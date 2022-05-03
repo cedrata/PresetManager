@@ -10,6 +10,7 @@
 
 #include <JuceHeader.h>
 #include "PluginProcessor.h"
+#include "PresetManager.h"
 
 //==============================================================================
 /**
@@ -17,7 +18,9 @@
 class PresetManagerAudioProcessorEditor  : public juce::AudioProcessorEditor
 {
 public:
-    PresetManagerAudioProcessorEditor (PresetManagerAudioProcessor&);
+    juce::String extracted(juce::String &tempDbgBuf);
+    
+PresetManagerAudioProcessorEditor (PresetManagerAudioProcessor&);
     ~PresetManagerAudioProcessorEditor() override;
 
     //==============================================================================
@@ -26,8 +29,9 @@ public:
 
 private:
     //==============================================================================
+    void initializePresetManager();
+    void initializeCallbacks();
     void saveStateAsPreset();
-//    void updatePresetComboBox();
     
     //==============================================================================
     // This reference is provided as a quick way for your editor to
@@ -37,9 +41,14 @@ private:
     // Buttons and Dials
     juce::TextButton saveButton;
     juce::ComboBox presetComboBox;
+    juce::TextButton previousPresetButton;
+    juce::TextButton nextPresetButton;
     
-    // FileChooser
+    // File chooser for preset
     std::unique_ptr<juce::FileChooser> chooser;
+    
+    // Preset Manager
+//    cdrt::PresetManager presetManager;
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (PresetManagerAudioProcessorEditor)
 };

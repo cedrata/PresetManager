@@ -24,6 +24,9 @@ PresetManagerAudioProcessor::PresetManagerAudioProcessor()
                        ), apvts(*this, nullptr, cdrt::PluginParameters::id, createParameters())
 #endif
 {
+//    /Library/Application Support/CedrataDSP/PresetManager/00.Default.xml
+    presetManager = std::make_unique<cdrt::PresetManager::Impelementation::PresetManager>(juce::File("/Library/Application Support/CedrataDSP/PresetManager/Default.xml"));
+    presetManager->initialize();
 }
 
 PresetManagerAudioProcessor::~PresetManagerAudioProcessor()
@@ -184,6 +187,42 @@ void PresetManagerAudioProcessor::setStateInformation (const void* data, int siz
 {
     // You should use this method to restore your parameters from this memory block,
     // whose contents will have been created by the getStateInformation() call.
+}
+
+
+//==============================================================================
+const juce::PopupMenu PresetManagerAudioProcessor::getPresetMenu()
+{
+    return presetManager->getPresetMenu();
+}
+
+//==============================================================================
+juce::Result PresetManagerAudioProcessor::storePreset(const juce::File &destinationFile)
+{
+    return presetManager->storePreset(destinationFile, apvts.state);
+}
+
+juce::Result PresetManagerAudioProcessor::deletePreset(const int id)
+{
+    return presetManager->deletePreset(id);
+}
+
+int PresetManagerAudioProcessor::loadPreset(const int id)
+{
+    apvts.state = presetManager->loadPreset(id);
+    return presetManager->getSelectedId();
+}
+
+int PresetManagerAudioProcessor::loadPrevoiusPreset()
+{
+    apvts.state = presetManager->loadPreviousPreset();
+    return presetManager->getSelectedId();
+}
+
+int PresetManagerAudioProcessor::loadNextPreset()
+{
+    apvts.state = presetManager->loadNextPreset();
+    return presetManager->getSelectedId();
 }
 
 //==============================================================================
