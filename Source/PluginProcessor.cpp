@@ -196,6 +196,11 @@ const juce::PopupMenu PresetManagerAudioProcessor::getPresetMenu()
     return this->presetManager->getPresetMenu();
 }
 
+int PresetManagerAudioProcessor::getSelectedPresetId()
+{
+    return this->presetManager->getSelectedId();
+}
+
 int PresetManagerAudioProcessor::getPreviousPresetId()
 {
     return this->presetManager->getPreviousPresetId();

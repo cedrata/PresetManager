@@ -108,6 +108,7 @@ void PresetManagerAudioProcessorEditor::saveStateAsPreset()
         {
             this->audioProcessor.storePreset(file);
             this->refreshPresetManager();
+            this->presetComboBox.setSelectedId(this->audioProcessor.getSelectedPresetId(), juce::NotificationType::dontSendNotification);
         }
     });
 }

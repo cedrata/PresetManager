@@ -62,6 +62,7 @@ public:
     // IPresetManagerCallback
     //==============================================================================
     const juce::PopupMenu getPresetMenu() override;
+    int getSelectedPresetId() override;
     int getPreviousPresetId() override;
     int getNextPresetId() override;
     

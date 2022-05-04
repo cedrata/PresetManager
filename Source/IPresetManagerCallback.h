@@ -31,6 +31,7 @@ namespace cdrt {
                 /** Getters & Setters*/
                 virtual const juce::PopupMenu getPresetMenu() = 0;
                 
+                virtual int getSelectedPresetId() = 0;
                 /**
                  Load the prevoius preset contained in the data structure contained in class that
                  implement the IPresetManager interface, the only needed argument is a file
