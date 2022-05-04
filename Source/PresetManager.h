@@ -88,6 +88,7 @@ namespace cdrt
                 // Index of active preset inside avaiablePresets.
                 int selectedPresetIndex;
                 juce::File defaultPreset;
+                juce::File lastStored;
                 juce::Array<juce::File> avaiablePresets;
                 // juce::Array<juce::File> avaiableSubMenus;
                 

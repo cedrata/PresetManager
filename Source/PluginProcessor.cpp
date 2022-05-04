@@ -193,24 +193,24 @@ void PresetManagerAudioProcessor::setStateInformation (const void* data, int siz
 //==============================================================================
 const juce::PopupMenu PresetManagerAudioProcessor::getPresetMenu()
 {
-    return presetManager->getPresetMenu();
+    return this->presetManager->getPresetMenu();
 }
 
 int PresetManagerAudioProcessor::getPreviousPresetId()
 {
-    return presetManager->getPreviousPresetId();
+    return this->presetManager->getPreviousPresetId();
 }
 
 int PresetManagerAudioProcessor::getNextPresetId()
 {
-    return presetManager->getNextPresetId();
+    return this->presetManager->getNextPresetId();
 }
 //==============================================================================
 juce::Result PresetManagerAudioProcessor::storePreset(const juce::File &destinationFile)
 {
-    auto storeResult = presetManager->storePreset(destinationFile, apvts.state);
+    auto storeResult = this->presetManager->storePreset(destinationFile, this->apvts.state);
     
-    if (storeResult == juce::Result::ok()) presetManager->refresh();
+    if (storeResult == juce::Result::ok()) this->presetManager->refresh();
     
     return storeResult;
 }
@@ -222,13 +222,13 @@ juce::Result PresetManagerAudioProcessor::deletePreset(const int id)
 
 int PresetManagerAudioProcessor::loadDefaultPreset()
 {
-    apvts.state = presetManager->loadDefaultPreset();
+    this->apvts.state = this->presetManager->loadDefaultPreset();
     return presetManager->getSelectedId();
 }
 
 int PresetManagerAudioProcessor::loadPreset(const int id)
 {
-    apvts.state = presetManager->loadPreset(id);
+    this->apvts.state = this->presetManager->loadPreset(id);
     return presetManager->getSelectedId();
 }
 
@@ -255,19 +255,8 @@ juce::AudioProcessorValueTreeState::ParameterLayout PresetManagerAudioProcessor:
 
 const juce::AudioProcessorValueTreeState& PresetManagerAudioProcessor::getAudioProcessorValueTreeState()
 {
-    return apvts;
+    return this->apvts;
 }
-
-void PresetManagerAudioProcessor::saveStateAsPreset(const juce::String &absoluteFilePath)
-{
-    // Explicit writing
-    std::unique_ptr<juce::XmlElement> currentStateXML = apvts.state.createXml();
-    if ((juce::SystemStats::getOperatingSystemType() & juce::SystemStats::OperatingSystemType::MacOSX) != 0)
-    {
-         apvts.state.createXml()->writeTo(juce::File(absoluteFilePath));
-    }
-}
-
 //==============================================================================
 // This creates new instances of the plugin..
 juce::AudioProcessor* JUCE_CALLTYPE createPluginFilter()

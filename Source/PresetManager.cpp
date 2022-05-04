@@ -67,10 +67,12 @@ namespace cdrt
 //                this->listPresets();
 //                this->listSubMenus();
                 this->buildPopupMenu();
+                selectedPresetIndex = avaiablePresets.indexOf(lastStored);
             }
             
             juce::Result PresetManager::storePreset(const juce::File &destinationFile, const juce::ValueTree &currentState) noexcept
             {
+                this->lastStored = destinationFile;
                 std::unique_ptr<juce::XmlElement> currentStateXML = currentState.createXml();
                 
                 if (currentStateXML == nullptr)
@@ -173,8 +175,8 @@ namespace cdrt
                                                       "*" + cdrt::Constants::Paths::presetExtension,
                                                       juce::File::FollowSymlinks::no);
                 currentPresets.sort();
-                for (auto p : currentPresets)
-                    DBG(p.getFileName());
+//                for (auto p : currentPresets)
+//                    DBG(p.getFileName());
 
                 // Get all avaiable presets in the current folder if any.
                 for (auto preset : currentPresets)
@@ -184,7 +186,7 @@ namespace cdrt
                     this->avaiablePresets.add(preset);
                     subMenu.addItem(juce::PopupMenu::Item(preset.getFileName())
                                                    .setID(this->creationIndex)
-                                                   .setTicked(false)
+                                                   .setTicked(preset.getFullPathName() == lastStored.getFullPathName() ? true : false)
                                                    .setEnabled(true));
                     ++this->creationIndex;
                 }
