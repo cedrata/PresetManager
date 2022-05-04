@@ -34,6 +34,18 @@ namespace cdrt
                 return this->presetsPopupMenu;
             }
             
+            int PresetManager::getPreviousPresetId() noexcept
+            {
+                return this->selectedPresetIndex =
+                ((this->selectedPresetIndex - 1) % avaiablePresets.size() + this->avaiablePresets.size())
+                % this->avaiablePresets.size() + 1;
+            }
+            
+            int PresetManager::getNextPresetId() noexcept
+            {
+                return this->selectedPresetIndex = (this->selectedPresetIndex + 1) % this->avaiablePresets.size() + 1;
+            }
+            
             const int PresetManager::getSelectedId() noexcept
             {
                 return selectedPresetIndex + 1;
@@ -76,6 +88,11 @@ namespace cdrt
                 return juce::Result::ok();
             }
             
+            juce::ValueTree PresetManager::loadDefaultPreset() noexcept
+            {
+                return this->loadPreset(this->avaiablePresets.indexOf(defaultPreset) + 1);
+            }
+            
             juce::ValueTree PresetManager::loadPreset(const int id) noexcept
             {
                 // I'm assuming the id exist because the id is taken from the PopupMenu
@@ -102,26 +119,6 @@ namespace cdrt
                 stateToLoadXML = juce::XmlDocument(fileToLoad).getDocumentElement();
                 
                 return juce::ValueTree().fromXml(*stateToLoadXML);
-            }
-            
-            juce::ValueTree PresetManager::loadPreviousPreset() noexcept
-            {
-                this->selectedPresetIndex =
-                ((this->selectedPresetIndex - 1) % avaiablePresets.size() + this->avaiablePresets.size())
-                % this->avaiablePresets.size();
-                
-                std::unique_ptr<juce::XmlElement> stateToLoadXML = juce::XmlDocument(this->avaiablePresets.getUnchecked(this->selectedPresetIndex)).getDocumentElement();
-                
-                return juce::ValueTree().fromXml(*stateToLoadXML);
-            }
-            
-            juce::ValueTree PresetManager::loadNextPreset() noexcept
-            {
-                this->selectedPresetIndex = (this->selectedPresetIndex - 1) % this->avaiablePresets.size();
-                
-                std::unique_ptr<juce::XmlElement> stateToLoadXML = juce::XmlDocument(this->avaiablePresets.getUnchecked(this->selectedPresetIndex)).getDocumentElement();
-                
-                return juce::ValueTree();
             }
             //==========================================================================
             // Private methods

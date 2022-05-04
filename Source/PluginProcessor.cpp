@@ -196,6 +196,15 @@ const juce::PopupMenu PresetManagerAudioProcessor::getPresetMenu()
     return presetManager->getPresetMenu();
 }
 
+int PresetManagerAudioProcessor::getPreviousPresetId()
+{
+    return presetManager->getPreviousPresetId();
+}
+
+int PresetManagerAudioProcessor::getNextPresetId()
+{
+    return presetManager->getNextPresetId();
+}
 //==============================================================================
 juce::Result PresetManagerAudioProcessor::storePreset(const juce::File &destinationFile)
 {
@@ -207,21 +216,15 @@ juce::Result PresetManagerAudioProcessor::deletePreset(const int id)
     return presetManager->deletePreset(id);
 }
 
+int PresetManagerAudioProcessor::loadDefaultPreset()
+{
+    apvts.state = presetManager->loadDefaultPreset();
+    return presetManager->getSelectedId();
+}
+
 int PresetManagerAudioProcessor::loadPreset(const int id)
 {
     apvts.state = presetManager->loadPreset(id);
-    return presetManager->getSelectedId();
-}
-
-int PresetManagerAudioProcessor::loadPrevoiusPreset()
-{
-    apvts.state = presetManager->loadPreviousPreset();
-    return presetManager->getSelectedId();
-}
-
-int PresetManagerAudioProcessor::loadNextPreset()
-{
-    apvts.state = presetManager->loadNextPreset();
     return presetManager->getSelectedId();
 }
 

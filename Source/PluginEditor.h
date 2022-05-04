@@ -30,6 +30,7 @@ PresetManagerAudioProcessorEditor (PresetManagerAudioProcessor&);
 private:
     //==============================================================================
     void initializePresetManager();
+    void refreshPresetManager();
     void initializeCallbacks();
     void saveStateAsPreset();
     

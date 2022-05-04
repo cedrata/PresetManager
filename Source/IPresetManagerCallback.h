@@ -30,7 +30,20 @@ namespace cdrt {
                 //======================================================================
                 /** Getters & Setters*/
                 virtual const juce::PopupMenu getPresetMenu() = 0;
-
+                
+                /**
+                 Load the prevoius preset contained in the data structure contained in class that
+                 implement the IPresetManager interface, the only needed argument is a file
+                 representing the currently selected preset.
+                */
+                virtual int getPreviousPresetId() = 0;
+                
+                /**
+                 Load the next preset contained in the data structure contained in class that
+                 implement the IPresetManager interface, the only needed argument is a file
+                 representing the currently selected preset.
+                */
+                virtual int getNextPresetId() = 0;
                 
                 //======================================================================
                 /** Store a preset file juce::File. */
@@ -39,22 +52,11 @@ namespace cdrt {
                 /** Delete a preset given a juce::File. */
                 virtual juce::Result deletePreset(const int id) = 0;
                 
+                /** Load the preset manager default preset */
+                virtual int loadDefaultPreset() = 0;
+                
                 /** Load a preset given a juce::File. */
                 virtual int loadPreset(const int id) = 0;
-                
-                /**
-                 Load the prevoius preset contained in the data structure contained in class that
-                 implement the IPresetManager interface, the only needed argument is a file
-                 representing the currently selected preset.
-                */
-                virtual int loadPrevoiusPreset() = 0;
-                
-                /**
-                 Load the next preset contained in the data structure contained in class that
-                 implement the IPresetManager interface, the only needed argument is a file
-                 representing the currently selected preset.
-                */
-                virtual int loadNextPreset() = 0;
             }; // calss IPresetManagerCallback
         } // namespace Interface
     } // namespace PresetManager

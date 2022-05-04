@@ -62,6 +62,12 @@ void PresetManagerAudioProcessorEditor::resized()
 //=============================================================================
 void PresetManagerAudioProcessorEditor::initializePresetManager()
 {
+    this->refreshPresetManager();
+    this->presetComboBox.setSelectedId(this->audioProcessor.loadDefaultPreset());
+}
+
+void PresetManagerAudioProcessorEditor::refreshPresetManager()
+{
     // PresetManager population
     juce::PopupMenu* pippo = presetComboBox.getRootMenu();
     *pippo = audioProcessor.getPresetMenu();
@@ -69,20 +75,19 @@ void PresetManagerAudioProcessorEditor::initializePresetManager()
 
 void PresetManagerAudioProcessorEditor::initializeCallbacks()
 {
-    presetComboBox.onChange = [&, this] () {
-        this->audioProcessor.loadPreset(presetComboBox.getSelectedId());
+    this->presetComboBox.onChange = [&, this] () {
+        this->audioProcessor.loadPreset(this->presetComboBox.getSelectedId());
     };
      
-    previousPresetButton.onClick = [this] () {
-        // TODO // this->audioProcessor.loadPrevoiusPreset();
+    this->previousPresetButton.onClick = [this] () {
+        this->presetComboBox.setSelectedId(this->audioProcessor.getPreviousPresetId());
     };
     
-    nextPresetButton.onClick = [this] () {
-        // TODO
-        // this->audioProcessor.loadNextPreset();
+    this->nextPresetButton.onClick = [this] () {
+        this->presetComboBox.setSelectedId(this->audioProcessor.getNextPresetId());
     };
    
-    saveButton.onClick = [this] () {
+    this->saveButton.onClick = [this] () {
         // TODO
         // this->audioProcessor.storePreset(destinationFile);
     };

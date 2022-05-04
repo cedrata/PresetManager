@@ -57,6 +57,11 @@ namespace cdrt
                  Delete a preset given his path.
                  */
                 virtual juce::Result deletePreset(const int id) = 0;
+                
+                /**
+                 Load the default preset passed inside the construtor.
+                 */
+                virtual juce::ValueTree loadDefaultPreset() = 0;
 
                 /**
                  Load a preset given a key, a string, containing the preset name or other informations.
@@ -67,13 +72,13 @@ namespace cdrt
                  Load the previous preset contained in the data structure contained inside the
                  class that implement this interface
                  */
-                virtual juce::ValueTree loadPreviousPreset() = 0;
+                virtual int getPreviousPresetId() = 0;
         
                 /**
                  Load the next preset contained in the data structure contained inside the
                  class that implement this interface
                  */
-                virtual juce::ValueTree loadNextPreset() = 0;
+                virtual int getNextPresetId() = 0;
             }; // class IPresetManager
         } // namespace Interface
     } // namespace PresetManager

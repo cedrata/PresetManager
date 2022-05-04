@@ -62,13 +62,14 @@ public:
     // IPresetManagerCallback
     //==============================================================================
     const juce::PopupMenu getPresetMenu() override;
+    int getPreviousPresetId() override;
+    int getNextPresetId() override;
     
     //==============================================================================
     juce::Result storePreset(const juce::File &destinationFile) override;
     juce::Result deletePreset(const int id) override;
+    int loadDefaultPreset() override;
     int loadPreset(const int id) override;
-    int loadPrevoiusPreset() override;
-    int loadNextPreset() override;
     
     
     //==============================================================================

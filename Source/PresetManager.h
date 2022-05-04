@@ -29,7 +29,19 @@ namespace cdrt
         
                 //======================================================================
                 // IPresetManager
+                /**
+                 TODO: Comment
+                 */
                 const juce::PopupMenu getPresetMenu() noexcept override;
+                /**
+                 TODO: Comment
+                 */
+                int getPreviousPresetId() noexcept override;
+                
+                /**
+                 TODO: Comment
+                 */
+                int getNextPresetId() noexcept override;
                 
                 const int getSelectedId() noexcept override;
                 /**
@@ -55,17 +67,13 @@ namespace cdrt
                 /**
                  TODO: Comment
                  */
-                juce::ValueTree loadPreset(const int id) noexcept override;
-
-                /**
-                 TODO: Comment
-                 */
-                juce::ValueTree loadPreviousPreset() noexcept override;
+                juce::ValueTree loadDefaultPreset() noexcept override;
                 
                 /**
                  TODO: Comment
                  */
-                juce::ValueTree loadNextPreset() noexcept override;
+                juce::ValueTree loadPreset(const int id) noexcept override;
+
             private:
                 //======================================================================
                 // Paths
