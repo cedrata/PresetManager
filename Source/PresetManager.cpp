@@ -76,6 +76,8 @@ namespace cdrt
                 if (currentStateXML == nullptr)
                     return juce::Result::fail("An error occured saving the current state to a preset");
                 
+                currentStateXML->writeTo(destinationFile);
+                
                 return juce::Result::ok();
             }
             
@@ -107,15 +109,6 @@ namespace cdrt
                 
                 std::unique_ptr<juce::XmlElement> stateToLoadXML;
                 
-//                if (this->selectedPresetIndex == -1)
-//                {
-//                    stateToLoadXML = juce::XmlDocument(this->defaultPreset).getDocumentElement();
-//                    this->selectedPresetIndex = 0;
-//                }
-//                else
-//                {
-//                    stateToLoadXML = juce::XmlDocument(fileToLoad).getDocumentElement();
-//                }
                 stateToLoadXML = juce::XmlDocument(fileToLoad).getDocumentElement();
                 
                 return juce::ValueTree().fromXml(*stateToLoadXML);

@@ -16,6 +16,7 @@ PresetManagerAudioProcessorEditor::PresetManagerAudioProcessorEditor (PresetMana
     : AudioProcessorEditor (&p),
     audioProcessor (p),
     saveButton(cdrt::Labels::UI::saveLabel),
+    asyncExecution(false),
     previousPresetButton("<"),
     nextPresetButton(">")
 {
@@ -88,8 +89,7 @@ void PresetManagerAudioProcessorEditor::initializeCallbacks()
     };
    
     this->saveButton.onClick = [this] () {
-        // TODO
-        // this->audioProcessor.storePreset(destinationFile);
+        this->saveStateAsPreset();
     };
    
 }
@@ -102,13 +102,12 @@ void PresetManagerAudioProcessorEditor::saveStateAsPreset()
     auto chooserFlags = juce::FileBrowserComponent::saveMode
     | juce::FileBrowserComponent::canSelectFiles;
 
-
     chooser->launchAsync(chooserFlags, [this] (const juce::FileChooser& fc) {
         auto file = fc.getResult();
         if (file != juce::File{})
         {
-            audioProcessor.saveStateAsPreset(file.getFullPathName());
-            // update presets combobox items
+            this->audioProcessor.storePreset(file);
+            this->refreshPresetManager();
         }
     });
 }

@@ -208,7 +208,11 @@ int PresetManagerAudioProcessor::getNextPresetId()
 //==============================================================================
 juce::Result PresetManagerAudioProcessor::storePreset(const juce::File &destinationFile)
 {
-    return presetManager->storePreset(destinationFile, apvts.state);
+    auto storeResult = presetManager->storePreset(destinationFile, apvts.state);
+    
+    if (storeResult == juce::Result::ok()) presetManager->refresh();
+    
+    return storeResult;
 }
 
 juce::Result PresetManagerAudioProcessor::deletePreset(const int id)

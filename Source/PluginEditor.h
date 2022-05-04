@@ -33,6 +33,7 @@ private:
     void refreshPresetManager();
     void initializeCallbacks();
     void saveStateAsPreset();
+    juce::File getNewPresetFile();
     
     //==============================================================================
     // This reference is provided as a quick way for your editor to
@@ -41,6 +42,7 @@ private:
     
     // Buttons and Dials
     juce::TextButton saveButton;
+    bool asyncExecution;
     juce::ComboBox presetComboBox;
     juce::TextButton previousPresetButton;
     juce::TextButton nextPresetButton;
