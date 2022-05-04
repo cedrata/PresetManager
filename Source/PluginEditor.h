@@ -50,8 +50,5 @@ private:
     // File chooser for preset
     std::unique_ptr<juce::FileChooser> chooser;
     
-    // Preset Manager
-//    cdrt::PresetManager presetManager;
-    
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (PresetManagerAudioProcessorEditor)
 };
