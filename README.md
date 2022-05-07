@@ -10,4 +10,4 @@ To run this example on MacOS the first thing to do is create a directory in "/Li
 
 ## TODOs
 It is not completed yet but soon will be. At the moment is missing the delete preset handler, then show user when current preset has been chaned.
-STANDBY! Just forked the repo at [this link] (https://github.com/TheAudioProgrammer/jucePresetManagement/tree/master/Source), when i started this repo I didn't find anything. But now thath the liked repo exists (and done far better than mine) i will implement what i think is missing in my opinion.
+STANDBY! Just forked the repo at [this link](https://github.com/TheAudioProgrammer/jucePresetManagement/tree/master/Source), when i started this repo I didn't find anything. But now thath the liked repo exists (and done far better than mine) i will implement what i think is missing in my opinion.
